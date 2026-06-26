@@ -24,10 +24,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# GET /health endpoint
+# GET & HEAD /health endpoint
 @app.get("/health", status_code=status.HTTP_200_OK)
+@app.head("/health", status_code=status.HTTP_200_OK)
 async def health():
     return {"status": "ok"}
+
+# GET & HEAD / (root) endpoint
+@app.get("/", status_code=status.HTTP_200_OK)
+@app.head("/", status_code=status.HTTP_200_OK)
+async def root():
+    return {"message": "QueueStorm Investigator API is running. Check /health for status."}
 
 # Register routes
 app.include_router(router)

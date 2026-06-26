@@ -12,6 +12,30 @@ def test_health():
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
 
+def test_health_head():
+    """
+    Test HEAD /health endpoint.
+    """
+    response = client.head("/health")
+    assert response.status_code == 200
+    assert response.content == b""
+
+def test_root_get():
+    """
+    Test GET / endpoint.
+    """
+    response = client.get("/")
+    assert response.status_code == 200
+    assert "message" in response.json()
+
+def test_root_head():
+    """
+    Test HEAD / endpoint.
+    """
+    response = client.head("/")
+    assert response.status_code == 200
+    assert response.content == b""
+
 def test_missing_required_fields():
     """
     Test POST /analyze-ticket with missing ticket_id or complaint.
